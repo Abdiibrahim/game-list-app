@@ -67,7 +67,7 @@ class Register extends Component {
                             </h4>
                             <p className="gery-text text-darken-1">
                                 Already have an account?
-                                <Link to="/login">Login</Link>
+                                <Link to="/login"> Login</Link>
                             </p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
