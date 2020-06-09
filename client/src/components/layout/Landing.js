@@ -13,6 +13,16 @@ class Landing extends Component {
             <p className="flow-text grey-text text-darken-1">
               A full-stack app that keeps track of video games (in progress)
             </p>
+            <p>
+              <b>TODO: </b>
+              <li>integrate redis for 3rd party api cache</li>
+              <li>create components for titles, user set</li>
+              <li>login (different users, oauth)</li>
+              <li>list of games (search / table) (by genre, platform, rating)</li>
+              <li>game info page (number of players, score, details), embedded game trailer (youtube api), related games</li>
+              <li>game completion status, ratings (plan to, dropped, in progress, completed)</li>
+              <li>user info (date joined, number of games/status, average rating, avatar, account settings)</li>
+            </p>
             <br />
             <div className="col s6">
               <Link
