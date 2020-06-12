@@ -105,4 +105,13 @@ router.post("/login", (req, res) => {
     });
 });
 
+// @route GET api/users/getAll
+// @desc Gets all users
+// @access Public
+router.get("/getAll", async (req, res) => {
+    const users = await User.find().cache({ expire: 10 });
+
+    res.json(users);
+});
+
 module.exports = router;
