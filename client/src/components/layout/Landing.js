@@ -15,9 +15,7 @@ class Landing extends Component {
             </p>
             <p>
               <b>TODO: </b>
-              <li>integrate redis for 3rd party api cache</li>
               <li>create components for titles, user set</li>
-              <li>login (different users, oauth)</li>
               <li>list of games (search / table) (by genre, platform, rating)</li>
               <li>game info page (number of players, score, details), embedded game trailer (youtube api), related games</li>
               <li>game completion status, ratings (plan to, dropped, in progress, completed)</li>
