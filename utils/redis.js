@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 const redis = require("redis");
 const util = require("util");
-const keys = require("../config/keys");
 
-const client = redis.createClient(keys.redisURI);
+const client = redis.createClient(process.env.redisURI);
 client.hget = util.promisify(client.hget);
 
 // create reference for .exec

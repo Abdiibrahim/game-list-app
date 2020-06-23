@@ -1,23 +1,46 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const keys = require('../../config/keys');
 
 router.get("/all", async (req, res) => {
+    var games = [];
+    var nextURL;
 
-    const games = await axios({
-        url: keys.igdbURL + "/games",
-        method: 'POST',
+    await axios({
+        method: "GET",
+        url: "https://rawg-video-games-database.p.rapidapi.com/games?platforms=18&dates=2013-11-01,2020-12-31",
         headers: {
-            'Accept': 'application/json',
-            'user-key': keys.igdbKey
-        },
-        data: "fields *;"
+            "content-type": "application/octet-stream",
+            "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+            "x-rapidapi-key": process.env.rawgKey,
+            "useQueryString": true
+        }
     })
-    .then(res => {
-        return res.data;
+    .then(async (res) => {
+        nextURL = res.data.next;
+        
+        res.data.results.forEach(row => {
+            games.push(row);
+        });
+
+        while (nextURL != null) {
+            await axios({
+            method: "GET",
+            url: nextURL
+            })
+            .then((res) => {
+                nextURL = res.data.next;
+
+                res.data.results.forEach(row => {
+                    games.push(row);
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        }
     })
-    .catch(err => {
+    .catch((err) => {
         console.error(err);
     });
 
