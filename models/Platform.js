@@ -3,18 +3,12 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const PlatformSchema = new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     slug: {
-        type: String,
-        required: true
+        type: String
     },
     name: {
-        type: String,
-        required: true
+        type: String
     }
 });
 
-module.exports = Platform = mongoose.model("platforms", PlatformSchema);
+module.exports = mongoose.model('platforms', PlatformSchema);

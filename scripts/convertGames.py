@@ -9,12 +9,16 @@ with open('ps4.json') as json_file:
             'slug': d['slug'],
             'name': d['name'],
             'playtime': d['playtime'],
-            'platforms': d['platforms'],
+            'platforms': [],
             'released': d['released'],
             'metacritic': d['metacritic'],
             'genres': d['genres'],
             'background_image': d['background_image']
         }
+
+        for p in d['platforms']:
+            n['platforms'].append(p['platform'])
+
         new_Data.append(n)
 
 with open('gamesData.json', 'w') as outfile:

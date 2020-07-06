@@ -3,18 +3,12 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const GenreSchema = new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     slug: {
-        type: String,
-        required: true
+        type: String
     },
     name: {
-        type: String,
-        required: true
+        type: String
     }
 });
 
-module.exports = Genre = mongoose.model("genres", GenreSchema);
+module.exports = mongoose.model('genres', GenreSchema);

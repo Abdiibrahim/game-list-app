@@ -5,6 +5,8 @@ const passport = require("passport");
 
 const users = require("./routes/api/users");
 const games = require("./routes/api/games");
+const genres = require("./routes/api/genres");
+const platforms = require("./routes/api/platforms");
 
 require('dotenv').config();
 require('./utils/redis');
@@ -36,6 +38,8 @@ require("./config/passport")(passport);
 // Routes
 app.use("/api/users", users);
 app.use("/api/games", games);
+app.use("/api/genres", genres);
+app.use("/api/platforms", platforms);
 
 const PORT = process.env.PORT || 5000;
 

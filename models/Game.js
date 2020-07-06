@@ -1,36 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Genre = require("./Genre");
-const Platform = require("./Platform");
+
+require('./Genre');
+require('./Platform');
+
+const GenreSchema = mongoose.model('genres').schema;
+const PlatformSchema = mongoose.model('platforms').schema;
 
 // Create Schema
 const GameSchema = new Schema({
-    slug: {
-        type: String,
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    playtime: {
-        type: Number
-    },
-    platforms: {
-        type: [Platform]
-    },
-    released: {
-        type: Date
-    },
-    metacritic: {
-        type: Number
-    },
-    genres: {
-        type: [Genre]
-    },
-    background_image: {
-        type: String
-    }
+    slug: String,
+    name: String,
+    playtime: Number,
+    platforms: [PlatformSchema],
+    released: Date,
+    metacritic: Number,
+    genres: [GenreSchema],
+    background_image: String
 });
 
-module.exports = Game = mongoose.model("games", GameSchema);
+module.exports = mongoose.model('games', GameSchema);

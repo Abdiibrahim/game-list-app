@@ -1,50 +1,45 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+
+const Game = require("../../models/Game");
 
 router.get("/all", async (req, res) => {
-    var games = [];
-    var nextURL;
+    const games = await Game.find().cache({ expire: 1800 });
 
-    await axios({
-        method: "GET",
-        url: "https://rawg-video-games-database.p.rapidapi.com/games?platforms=18&dates=2013-11-01,2020-12-31",
-        headers: {
-            "content-type": "application/octet-stream",
-            "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
-            "x-rapidapi-key": process.env.rawgKey,
-            "useQueryString": true
-        }
-    })
-    .then(async (res) => {
-        nextURL = res.data.next;
-        
-        res.data.results.forEach(row => {
-            games.push(row);
-        });
-
-        while (nextURL != null) {
-            await axios({
-            method: "GET",
-            url: nextURL
-            })
-            .then((res) => {
-                nextURL = res.data.next;
-
-                res.data.results.forEach(row => {
-                    games.push(row);
-                });
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-        }
-    })
-    .catch((err) => {
-        console.error(err);
-    });
+    console.log(games.length);
 
     res.json(games);
 });
+
+/// @route POST api/games/insert
+/// @desc Inserts a game
+/// @access Public
+// router.post("/insert", (req, res) => {
+//     const newGame = new Game({
+//         slug: req.body.slug,
+//         name: req.body.name,
+//         playtime: req.body.playtime,
+//         platforms: [],
+//         released: req.body.released,
+//         metacritic: req.body.metacritic,
+//         genres: [],
+//         background_image: req.body.background_image
+//     });
+
+//     req.body['platforms'].forEach(p => {
+//         var newPlatform = new Platform({
+//             slug: p.slug,
+//             name: p.name
+//         })
+//         console.log(newPlatform);
+//         newGame.platforms.push(newPlatform);
+//     })
+
+//     console.log(newGame);
+
+//     // newGame.save()
+//     //     .then(game => res.json(game))
+//     //     .catch(err => console.error(err));
+// });
 
 module.exports = router;
